@@ -23,6 +23,22 @@ extern "C" __declspec(dllexport) void VanguardWrapper_pokebyte(unsigned int id, 
 	ptr[addr] = val;
 }
 
+extern "C" __declspec(dllexport) unsigned char VanguardWrapper_peekbyte_alt(unsigned int type, long long addr) {
+	runloop_state_t* runloop_st = runloop_state_get_ptr();
+	auto ptr = (unsigned char*)runloop_st->current_core.retro_get_memory_data(type);
+	if (ptr) {
+		return ptr[addr];
+	}
+}
+
+extern "C" __declspec(dllexport) void VanguardWrapper_pokebyte_alt(unsigned int type, long long addr, unsigned char val) {
+	runloop_state_t* runloop_st = runloop_state_get_ptr();
+	auto ptr = (unsigned char*)runloop_st->current_core.retro_get_memory_data(type);
+	if (ptr) {
+		ptr[addr] = val;
+	}
+}
+
 extern "C" __declspec(dllexport) size_t VanguardWrapper_getmemsize(unsigned int id) {
 	rarch_system_info_t* system = &runloop_state_get_ptr()->system;
 	if (id > system->mmaps.num_descriptors)
@@ -42,6 +58,23 @@ extern "C" __declspec(dllexport) const char* VanguardWrapper_getmemname(unsigned
 	const char* ramtype = system->mmaps.descriptors[id].core.flags & RETRO_MEMDESC_SYSTEM_RAM ? "SYSTEMRAM" : (system->mmaps.descriptors[id].core.flags & RETRO_MEMDESC_VIDEO_RAM ? "VIDEORAM" : (system->mmaps.descriptors[id].core.flags & RETRO_MEMDESC_SAVE_RAM ? "SAVERAM" : ""));
 	sprintf(name, "%s_%zX", ramtype, system->mmaps.descriptors[id].core.start);
 	return name;
+}
+
+extern "C" __declspec(dllexport) size_t VanguardWrapper_getmemsize_alt(unsigned int type) {
+	runloop_state_t* runloop_st = runloop_state_get_ptr();
+	return runloop_st->current_core.retro_get_memory_size(type);
+}
+
+extern "C" __declspec(dllexport) const char* VanguardWrapper_getmemname_alt(unsigned int type) {
+	switch (type) {
+	case RETRO_MEMORY_SAVE_RAM:
+		return "SAVERAM";
+	case RETRO_MEMORY_SYSTEM_RAM:
+		return "SYSTEMRAM";
+	case RETRO_MEMORY_VIDEO_RAM:
+		return "VIDEORAM";
+	}
+	return "UNKNOWN";
 }
 
 extern "C" __declspec(dllexport) unsigned int VanguardWrapper_getmemdesccount() {
