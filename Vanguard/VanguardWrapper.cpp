@@ -7,6 +7,8 @@
 #include <paths.h>
 #include <menu/menu_driver.h>
 
+
+
 extern "C" __declspec(dllexport) unsigned char VanguardWrapper_peekbyte(unsigned int id, long long addr) {
 	rarch_system_info_t* system = &runloop_state_get_ptr()->system;
 	if (id > system->mmaps.num_descriptors)
@@ -99,11 +101,12 @@ extern "C" __declspec(dllexport) const char* VanguardWrapper_getcorepath() {
 }
 
 extern "C" __declspec(dllexport) const char* VanguardWrapper_getcorename() {
-	/*rarch_system_info_t* system = &runloop_state_get_ptr()->system;
-	return system->subsystem.data->desc;*/
+	rarch_system_info_t* system = &runloop_state_get_ptr()->system;
+	if (system->subsystem.data)
+		return system->subsystem.data->desc;
 	
 	// TODO: the above code doesn't seem to work
-	return "System";
+	return "Unknown";
 }
 
 extern "C" __declspec(dllexport) void VanguardWrapper_loadcontent(const char* core, const char* rompath) {
@@ -120,23 +123,20 @@ extern "C" __declspec(dllexport) void VanguardWrapper_loadcontent(const char* co
 
 extern "C" __declspec(dllexport) const char* VanguardWrapper_getcontentname() {
 
-	//rarch_system_info_t* system = &runloop_state_get_ptr()->system;
-	//const struct retro_subsystem_info* subsystem = NULL;
-	//runloop_state_t* runloop_st = runloop_state_get_ptr();
+	rarch_system_info_t* system = &runloop_state_get_ptr()->system;
+	const struct retro_subsystem_info* subsystem = NULL;
+	runloop_state_t* runloop_st = runloop_state_get_ptr();
 
-	///* Core fully loaded, use the subsystem data */
-	//if (system->subsystem.data)
-	//	subsystem = system->subsystem.data;
-	///* Core not loaded completely, use the data we peeked on load core */
-	//else
-	//	subsystem = runloop_st->subsystem_data;
-
-	//return content_get_subsystem() == 0
-	//	? subsystem->roms[content_get_subsystem_rom_id()].desc
-	//	: subsystem->roms[0].desc;
+	/* Core fully loaded, use the subsystem data */
+	if (system->subsystem.data) {
+		return subsystem->roms[content_get_subsystem_rom_id()].desc;
+	}
+	/* Core not loaded completely, use the data we peeked on load core */
+	else
+		return "Unknown";
 	
 	// TODO: the above code doesn't seem to work
-	return "Game";
+	return "Unknown";
 }
 
 extern "C" __declspec(dllexport) bool VanguardWrapper_ismemregionbigendian(unsigned int id) {
