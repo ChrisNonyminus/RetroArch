@@ -3795,6 +3795,11 @@ int rarch_main(int argc, char *argv[], void *data)
    }
 #endif
 
+   HINSTANCE vanguard = LoadLibraryA("RetroarchVanguard-Hook.dll"); // RTC_Hack: execute InitVanguard
+   typedef void (*InitVanguard)();
+   InitVanguard StartVanguard = (InitVanguard)GetProcAddress(vanguard, "InitVanguard");
+   StartVanguard();
+
    rtime_init();
 
 #if defined(ANDROID)

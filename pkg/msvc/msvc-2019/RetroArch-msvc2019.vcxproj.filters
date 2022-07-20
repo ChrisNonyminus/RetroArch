@@ -10,6 +10,9 @@
     <Filter Include="QT">
       <UniqueIdentifier>{e6159cab-0a32-493f-a119-a2f0fd0cc6ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vanguard">
+      <UniqueIdentifier>{7c4931c0-6cf7-4b73-ac08-5f95c8abcc2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\griffin\griffin.c">
@@ -20,6 +23,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\griffin\griffin_glslang.cpp">
       <Filter>griffin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Vanguard\VanguardWrapper.cpp">
+      <Filter>Vanguard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

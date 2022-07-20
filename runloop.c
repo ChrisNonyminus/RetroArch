@@ -7771,6 +7771,11 @@ RUNLOOP_FLAG_PAUSED) || (menu_pause_libretro && (menu_state_get_ptr()->flags & M
                audio_buf_active, audio_buf_occupancy, audio_buf_underrun);
    }
 
+   HINSTANCE vanguard = LoadLibraryA("RetroarchVanguard-Hook.dll"); // RTC_Hack: Execute corestep
+   typedef void (*CPUSTEP)();
+   CPUSTEP CPU_STEP = (CPUSTEP)GetProcAddress(vanguard, "CPU_STEP");
+   CPU_STEP();
+
    switch ((enum runloop_state_enum)runloop_check_state(
             global_get_ptr()->error_on_init,
             settings, current_time))

@@ -227,3 +227,5 @@ param.sfo
 
 # Visual Studio Code
 .vscode/
+/pkg/msvc/msvc-2019/x64
+/pkg/msvc/x64/Release Cg
