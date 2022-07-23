@@ -1396,7 +1396,7 @@ static void content_load_init_wrap(
    if (args->flags & RARCH_MAIN_WRAP_FLAG_VERBOSE)
       argv[(*argc)++] = strldup("-v", sizeof("-v"));
 }
-
+#include "Vanguard/VanguardWrapper.h"
 /**
  * content_load:
  *
@@ -1461,12 +1461,6 @@ static bool content_load(content_ctx_info_t *info,
       return false;
 
    rarch_system_info_t* system = &runloop_state_get_ptr()->system;
-   if (/*system->subsystem.data != NULL*/true) {
-      HINSTANCE vanguard = LoadLibraryA("RetroarchVanguard-Hook.dll"); // RTC_Hack: execute loadgamedone
-      typedef void (*LOAD_GAME_DONE)();
-      LOAD_GAME_DONE LoadGameDone = (LOAD_GAME_DONE)GetProcAddress(vanguard, "LOADGAMEDONE");
-      LoadGameDone();
-   }
    if (p_content->flags & CONTENT_ST_FLAG_PENDING_SUBSYSTEM_INIT)
    {
       command_event(CMD_EVENT_CORE_INIT, NULL);

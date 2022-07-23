@@ -135,6 +135,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>RetroArchmsvc2015</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -326,7 +327,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Cg|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -694,6 +695,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules />
     <CodeAnalysisRuleAssemblies />
+    <ManagedAssembly>true</ManagedAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Cg|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -1428,13 +1430,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;RARCH_INTERNAL;HAVE_CC_RESAMPLER;WANT_GLSLANG;HAVE_SLANG;HAVE_GLSLANG;HAVE_BUILTINGLSLANG;HAVE_SPIRV_CROSS;HAVE_ONLINE_UPDATER;HAVE_UPDATE_ASSETS;HAVE_UPDATE_CORES;HAVE_CORE_INFO_CACHE;HAVE_D3D;HAVE_D3D9;HAVE_D3D10;HAVE_D3D11;HAVE_D3D12;HAVE_VULKAN;ENABLE_HLSL;HAVE_HLSL;HAVE_D3DX;RC_DISABLE_LUA;HAVE_WASAPI;HAVE_GLSL;HAVE_CHEEVOS;HAVE_RUNAHEAD;HAVE_TRANSLATE;HAVE_CDROM;HAVE_GRIFFIN;HAVE_GDI;HAVE_LANGEXTRA;HAVE_ZLIB;HAVE_XMB;HAVE_OZONE;HAVE_SHADERPIPELINE;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);HAVE_DINPUT;HAVE_XINPUT;HAVE_XAUDIO;HAVE_DSOUND;HAVE_OPENGL;HAVE_OPENGL_CORE;HAVE_DYLIB;HAVE_NETWORKING;HAVE_IFINFO;HAVE_NETWORK_CMD;HAVE_NETPLAYDISCOVERY;HAVE_COMMAND;HAVE_STDIN_CMD;HAVE_THREADS;HAVE_DYNAMIC;HAVE_RPNG;HAVE_RJPEG;HAVE_RBMP;HAVE_RTGA;HAVE_IMAGEVIEWER;_CRT_SECURE_NO_WARNINGS;__SSE__;__SSE2__;__x86_64__;HAVE_OVERLAY;HAVE_RGUI;HAVE_GL_SYNC;HAVE_MENU;HAVE_GFX_WIDGETS;HAVE_CONFIGFILE;HAVE_PATCH;HAVE_DSP_FILTER;HAVE_VIDEO_FILTER;HAVE_REWIND;HAVE_SCREENSHOTS;HAVE_CHEATS;HAVE_7ZIP;_7ZIP_ST;HAVE_MATERIALUI;HAVE_LIBRETRODB;HAVE_AUDIOMIXER;HAVE_RWAV;HAVE_STB_FONT</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\;$(MSBuildProjectDirectory)\..\..\..\deps\rcheevos\include;$(MSBuildProjectDirectory)\..\..\..\libretro-common\include\compat\zlib;$(MSBuildProjectDirectory)\..\..\..\libretro-common\include;$(MSBuildProjectDirectory)\..\..\..\deps;$(MSBuildProjectDirectory)\..\..\..\deps\glslang;$(MSBuildProjectDirectory)\..\..\..\deps\SPIRV-Cross;$(MSBuildProjectDirectory)\..\..\..\deps\stb;$(MSBuildProjectDirectory)\..\..\..\gfx\include;$(MSBuildProjectDirectory)\..\..\..\gfx\include\d3d9;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <CompileAs>CompileAsCpp</CompileAs>
       <FloatingPointModel>Fast</FloatingPointModel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4566;4819</DisableSpecificWarnings>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1575,6 +1578,10 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Cg|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug QT|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug QT+CG|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Vanguard\UnmanagedWrapper.cpp" />
+    <ClCompile Include="..\..\..\Vanguard\VanguardClient.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="..\..\..\Vanguard\VanguardWrapper.cpp" />
   </ItemGroup>
@@ -1923,6 +1930,38 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release Cg|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release Cg|x64'">true</ExcludedFromBuild>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\RTCV\Source\Frontend\UI\UI.csproj">
+      <Project>{452f3f3c-6a87-4f67-8330-0f4a702f9951}</Project>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\RTCV\Source\Libraries\Common\Common.csproj">
+      <Project>{3fe50c3d-901f-4ea4-b378-1b180cb992e1}</Project>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\RTCV\Source\Libraries\CorruptCore\CorruptCore.csproj">
+      <Project>{18697fab-74b5-416b-a614-e226c387efad}</Project>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\RTCV\Source\Libraries\NetCore\NetCore.csproj">
+      <Project>{03c65d88-87e7-4f8f-ac12-8d120c32cc49}</Project>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\RTCV\Source\Libraries\PluginHost\PluginHost.csproj">
+      <Project>{c7af80c0-d7b9-4667-8fdc-baebb9582089}</Project>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\RTCV\Source\Libraries\Vanguard\Vanguard.csproj">
+      <Project>{f53ca6e5-655c-42fd-aa4e-f2947c4e0157}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Vanguard\Helpers.hpp" />
+    <ClInclude Include="..\..\..\Vanguard\UnmanagedWrapper.h" />
+    <ClInclude Include="..\..\..\Vanguard\VanguardClient.h" />
+    <ClInclude Include="..\..\..\Vanguard\VanguardClientInitializer.h" />
+    <ClInclude Include="..\..\..\Vanguard\VanguardWrapper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

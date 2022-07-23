@@ -62,6 +62,8 @@
 #include "../cheat_manager.h"
 #endif
 
+#include "Vanguard/VanguardWrapper.h"
+
 #if defined(HAVE_LIBNX) || defined(_3DS)
 #define SAVE_STATE_CHUNK 4096 * 10
 #else
@@ -930,6 +932,8 @@ static void task_load_handler_finished(retro_task_t *task,
    task_set_data(task, task_data);
 
    free(state);
+
+   Vanguard_LoadStateDone();
 }
 
 /**

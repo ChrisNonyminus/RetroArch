@@ -201,7 +201,9 @@ static xaudio2_t *xaudio2_new(unsigned samplerate, unsigned channels,
 
 #if !defined(_XBOX) && !defined(__WINRT__)
    if (FAILED(CoInitialize(NULL)))
-      goto error;
+   {
+      //goto error;
+   }
 #endif
 
 #if defined(__cplusplus) && !defined(CINTERFACE)

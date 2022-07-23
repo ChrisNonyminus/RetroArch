@@ -236,6 +236,8 @@
 #include "lakka.h"
 #endif
 
+#include "Vanguard/VanguardWrapper.h"
+
 #define SHADER_FILE_WATCH_DELAY_MSEC 500
 
 #define QUIT_DELAY_USEC 3 * 1000000 /* 3 seconds */
@@ -5003,6 +5005,8 @@ static bool core_unload_game(void)
 
    audio_driver_stop();
 
+   Vanguard_GameClosed();
+
    return true;
 }
 
@@ -5644,6 +5648,10 @@ bool runloop_event_init_core(
    runloop_st->frame_limit_last_time    = cpu_features_get_time_usec();
 
    runloop_runtime_log_init(runloop_st);
+
+   if (/*system->subsystem.data != NULL*/true) {
+      Vanguard_LoadGameDone();
+   }
    return true;
 }
 
@@ -7644,8 +7652,6 @@ MENU_ST_FLAG_IS_BINDING;
    return RUNLOOP_STATE_ITERATE;
 }
 
-
-
 /**
  * runloop_iterate:
  *
@@ -7770,11 +7776,6 @@ RUNLOOP_FLAG_PAUSED) || (menu_pause_libretro && (menu_state_get_ptr()->flags & M
          runloop_st->audio_buffer_status.callback(
                audio_buf_active, audio_buf_occupancy, audio_buf_underrun);
    }
-
-   HINSTANCE vanguard = LoadLibraryA("RetroarchVanguard-Hook.dll"); // RTC_Hack: Execute corestep
-   typedef void (*CPUSTEP)();
-   CPUSTEP CPU_STEP = (CPUSTEP)GetProcAddress(vanguard, "CPU_STEP");
-   CPU_STEP();
 
    switch ((enum runloop_state_enum)runloop_check_state(
             global_get_ptr()->error_on_init,
@@ -8015,6 +8016,8 @@ RUNLOOP_FLAG_PAUSED) || (menu_pause_libretro && (menu_state_get_ptr()->flags & M
 #ifdef HAVE_CHEATS
    cheat_manager_apply_retro_cheats();
 #endif
+
+   Vanguard_CoreStep();
 #ifdef HAVE_PRESENCE
    presence_update(PRESENCE_GAME);
 #endif

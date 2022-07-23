@@ -3759,7 +3759,7 @@ void main_exit(void *args)
    sdl_exit();
 #endif
 }
-
+#include "Vanguard/VanguardWrapper.h"
 /**
  * main_entry:
  *
@@ -3790,15 +3790,12 @@ int rarch_main(int argc, char *argv[], void *data)
 #if defined(_WIN32) && !defined(_XBOX) && !defined(__WINRT__)
    if (FAILED(CoInitialize(NULL)))
    {
-      RARCH_ERR("FATAL: Failed to initialize the COM interface\n");
-      return 1;
+      /*RARCH_ERR("FATAL: Failed to initialize the COM interface\n");
+      return 1;*/
    }
 #endif
 
-   HINSTANCE vanguard = LoadLibraryA("RetroarchVanguard-Hook.dll"); // RTC_Hack: execute InitVanguard
-   typedef void (*InitVanguard)();
-   InitVanguard StartVanguard = (InitVanguard)GetProcAddress(vanguard, "InitVanguard");
-   StartVanguard();
+   Vanguard_InitializeVanguard();
 
    rtime_init();
 

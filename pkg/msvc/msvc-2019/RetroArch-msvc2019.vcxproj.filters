@@ -24,6 +24,12 @@
     <ClCompile Include="..\..\..\griffin\griffin_glslang.cpp">
       <Filter>griffin</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Vanguard\UnmanagedWrapper.cpp">
+      <Filter>Vanguard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Vanguard\VanguardClient.cpp">
+      <Filter>Vanguard</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Vanguard\VanguardWrapper.cpp">
       <Filter>Vanguard</Filter>
     </ClCompile>
@@ -37,5 +43,22 @@
     </CustomBuild>
     <CustomBuild Include="..\..\..\ui\drivers\qt\gridview.h" />
     <CustomBuild Include="..\..\..\ui\drivers\qt\qt_options.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Vanguard\UnmanagedWrapper.h">
+      <Filter>Vanguard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Vanguard\VanguardClient.h">
+      <Filter>Vanguard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Vanguard\VanguardClientInitializer.h">
+      <Filter>Vanguard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Vanguard\Helpers.hpp">
+      <Filter>Vanguard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Vanguard\VanguardWrapper.h">
+      <Filter>Vanguard</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
