@@ -42,6 +42,8 @@ public:
    static void VANGUARD_PAUSEEMULATION();
    static void VANGUARD_RESUMEEMULATION();
 
+   static void PERFORM_TASKS();
+
 
    static VanguardSettingsUnmanaged nSettings;
 };

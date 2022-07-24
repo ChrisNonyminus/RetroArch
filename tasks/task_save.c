@@ -932,8 +932,6 @@ static void task_load_handler_finished(retro_task_t *task,
    task_set_data(task, task_data);
 
    free(state);
-
-   Vanguard_LoadStateDone();
 }
 
 /**
@@ -1272,6 +1270,8 @@ static void content_load_state_cb(retro_task_t *task,
 
    free(buf);
    free(load_data);
+
+   Vanguard_LoadStateDone();
 
    return;
 

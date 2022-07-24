@@ -672,6 +672,7 @@ bool VanguardClient::LoadState(std::string filename) {
     UnmanagedWrapper::VANGUARD_LOADSTATE(filename);
     // We have to do it this way to prevent deadlock due to synced calls. It sucks but it's required
     // at the moment
+    UnmanagedWrapper::PERFORM_TASKS();
     int i = 0;
     do {
         Thread::Sleep(20);

@@ -222,3 +222,9 @@ void UnmanagedWrapper::VANGUARD_RESUMEEMULATION()
 	command_event(CMD_EVENT_UNPAUSE, NULL);
 }
 
+void UnmanagedWrapper::PERFORM_TASKS()
+{
+	task_queue_wait(NULL, NULL);
+	task_queue_check();
+}
+
