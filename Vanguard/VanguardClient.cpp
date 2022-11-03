@@ -693,6 +693,7 @@ bool VanguardClient::SaveState(String^ filename, bool wait) {
     const char* converted_filename = s.c_str();
     VanguardClient::lastStateName = filename;
     UnmanagedWrapper::VANGUARD_SAVESTATE(s);
+    VanguardClientUnmanaged::SAVE_STATE_DONE();
     return true;
 }
 

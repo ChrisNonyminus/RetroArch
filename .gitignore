@@ -229,3 +229,21 @@ param.sfo
 .vscode/
 /pkg/msvc/msvc-2019/x64
 /pkg/msvc/x64/Release Cg
+pkg/msvc/x64/RTCV/Vanguard.pdb
+pkg/msvc/x64/RTCV/Vanguard.IDL
+pkg/msvc/x64/RTCV/UI.pdb
+pkg/msvc/x64/RTCV/Tests.pdb
+pkg/msvc/x64/RTCV/StandaloneRTC.xml
+pkg/msvc/x64/RTCV/StandaloneRTC.pdb
+pkg/msvc/x64/RTCV/StandaloneRTC.exe
+pkg/msvc/x64/RTCV/RTCV.Common.pdb
+pkg/msvc/x64/RTCV/RTCV.Common.def
+pkg/msvc/x64/RTCV/PluginHost.pdb
+pkg/msvc/x64/RTCV/NLog.xml
+pkg/msvc/x64/RTCV/NetCore.pdb
+pkg/msvc/x64/RTCV/NetCore.IDL
+pkg/msvc/x64/RTCV/CoverletSourceRootsMapping
+pkg/msvc/x64/RTCV/CorruptCore.pdb
+pkg/msvc/x64/RTCV/CorruptCore.def
+pkg/msvc/x64/RTCV/Ceras.xml
+pkg/msvc/x64/RTCV/Ceras.pdb
